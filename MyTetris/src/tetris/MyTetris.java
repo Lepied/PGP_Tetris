@@ -163,11 +163,12 @@ public class MyTetris extends JFrame{
 	    volumeSlider.setPaintLabels(true);
 
 	    volumeSetting.add(volumeSlider);
-	    volumeSlider.addChangeListener(new ChangeListener() {
+	    volumeSlider.addChangeListener(new ChangeListener() { //현재 슬라이더를 통해 볼륨을 조절할 수 있으나, 슬라이더의 모습과 실제 볼륨간에 괴리감이 있음.
 	        @Override
 	        public void stateChanged(ChangeEvent e) {
 	            int volumeValue = volumeSlider.getValue();
 	            float volume = volumeValue / 100.0f;
+	            System.out.println("볼륨 : "+volume);
 	            soundManager.setVolume(volume);
 	        }
 	    });

@@ -57,6 +57,13 @@ public class SoundManager {
             clip.open(audioInputStream);
             volumeControl = (FloatControl) clip.getControl
             		(FloatControl.Type.MASTER_GAIN); // 볼륨 컨트롤을 업데이트합니다.
+            
+            if (volumeControl != null) { //볼륨 기초값 설정
+                float minVolume = volumeControl.getMinimum();
+                float maxVolume = volumeControl.getMaximum();
+                float midVolume = (maxVolume - minVolume) / 2.0f + minVolume;
+                volumeControl.setValue(midVolume);
+            }
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
