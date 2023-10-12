@@ -11,6 +11,8 @@ import java.awt.CardLayout;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import java.io.*;
 import java.net.*;
@@ -66,7 +68,8 @@ public class MyTetris extends JFrame{
 		pack();
 		setVisible(true);
 
-		soundManager.setMusic("C:\\Users\\gang0\\OneDrive\\바탕 화면\\MyTetris20230922\\src\\Sound\\BGM Tetris Bradinsky.wav");
+		//노트북 <-> PC바뀔때마다 경로바뀌어야함.
+		soundManager.setMusic("C:\\Users\\USER\\AppData\\Roaming\\SPB_16.6\\git\\PGP_Tetris\\MyTetris\\src\\Sound\\BGM Tetris Bradinsky.wav");
 		soundManager.play();
 		soundManager.setVolume(0.85f);
 
@@ -147,6 +150,27 @@ public class MyTetris extends JFrame{
 				
 			}
 		});
+		JMenu soundMenu = new JMenu("볼륨");
+		mb.add(soundMenu);
+		
+		JMenuItem volumeSetting = new JMenuItem("볼륨 설정");
+		soundMenu.add(volumeSetting);
+		
+		JSlider volumeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, (int)(soundManager.getVolume() * 100));
+	    volumeSlider.setMajorTickSpacing(10);
+	    volumeSlider.setMinorTickSpacing(1);
+	    volumeSlider.setPaintTicks(true);
+	    volumeSlider.setPaintLabels(true);
+
+	    volumeSetting.add(volumeSlider);
+	    volumeSlider.addChangeListener(new ChangeListener() {
+	        @Override
+	        public void stateChanged(ChangeEvent e) {
+	            int volumeValue = volumeSlider.getValue();
+	            float volume = volumeValue / 100.0f;
+	            soundManager.setVolume(volume);
+	        }
+	    });
 	}
 	public static void main(String[] args) {
 		new MyTetris();

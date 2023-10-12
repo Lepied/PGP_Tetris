@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class SoundManager {
-	private Clip clip;
+	public Clip clip;
 	private FloatControl volumeControl;
 	
 	public SoundManager()
@@ -61,6 +61,17 @@ public class SoundManager {
             e.printStackTrace();
         }
 	}
+    public float getVolume() {
+        if (volumeControl != null && clip != null) {
+            float minVolume = volumeControl.getMinimum();
+            float maxVolume = volumeControl.getMaximum();
+            float currentVolume = volumeControl.getValue();
+            // 현재 볼륨 값을 0.0f ~ 1.0f 범위로 정규화하여 반환
+            return (currentVolume - minVolume) / (maxVolume - minVolume);
+        } else {
+            return 0.0f;
+        }
+    }
 	
 	public static void main(String[] args) {
 		SoundManager soundManager = new SoundManager();

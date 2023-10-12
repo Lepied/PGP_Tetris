@@ -102,7 +102,7 @@ public class TetrisCanvas extends JPanel implements Runnable, KeyListener, Compo
 				}
 			}
 		}
-		
+		//내려오고 있는 블럭이 꽂힐 장소 미리보기
 		if(current != null)
 		{
 			shadowPiece = current.clone();
