@@ -90,7 +90,7 @@ public class TetrisCanvas extends JPanel implements Runnable, KeyListener, Compo
 	     // 패널의 배경 색상을 업데이트
         int theme = Constant.getCurrentTheme();
         if (theme == 1) {
-            setBackground(new Color(0, 0, 0)); // 기본 테마의 배경 색상
+            setBackground(new Color(80, 80, 80)); // 기본 테마의 배경 색상
         } else if (theme == 2) {
             setBackground(new Color(255, 255, 255)); // 모노크롬 테마의 배경 색상
         }
@@ -100,14 +100,6 @@ public class TetrisCanvas extends JPanel implements Runnable, KeyListener, Compo
 		bufferGraphics.clearRect(0,0,dim.width,dim.height); 
 		
  
-	    // 테트리스 판의 격자 그리기
-	    for (int i = 0; i < TetrisData.ROW; i++) {
-	        for (int k = 0; k < TetrisData.COL; k++) {
-	            bufferGraphics.setColor(Color.GRAY);
-	            bufferGraphics.draw3DRect(Constant.margin / 2 + Constant.w * k, 
-	                Constant.margin / 2 + Constant.w * i, Constant.w, Constant.w, true);
-	        }
-	    }
 		
 		//쌓인 조각들 그리기
 		for(int i = 0; i < TetrisData.ROW; i++) {
@@ -115,6 +107,10 @@ public class TetrisCanvas extends JPanel implements Runnable, KeyListener, Compo
 				if(data.getAt(i, k) == 0) {
 					bufferGraphics.setColor(Constant.basicColor(data.getAt(i, k),Constant.getCurrentTheme()));
 					bufferGraphics.draw3DRect(Constant.margin/2 + Constant.w * k,
+							Constant.margin/2 + Constant.w * i, Constant.w, Constant.w, true);
+					
+					bufferGraphics.setColor(Constant.basicColor(data.getAt(i, k),Constant.getCurrentTheme()));
+					bufferGraphics.fill3DRect(Constant.margin/2 + Constant.w * k,
 							Constant.margin/2 + Constant.w * i, Constant.w, Constant.w, true);
 				} else {
 					bufferGraphics.setColor(Constant.basicColor(data.getAt(i, k),Constant.getCurrentTheme()));

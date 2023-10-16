@@ -41,21 +41,11 @@ public class TetrisPreview extends JPanel {
 	public void paint(Graphics g) {
 		super.paint(g);
 		
-		/*
-        // 패널의 배경 색상을 업데이트
-        int theme = Constant.getCurrentTheme();
-        if (theme == 1) {
-            setBackground(new Color(80, 80, 80)); // 기본 테마의 배경 색상
-        } else if (theme == 2) {
-            setBackground(new Color(255, 255, 255)); // 모노크롬 테마의 배경 색상
-        }
-        */
-		
 		//미리보기 공간 그리기
 		for(int i = 0; i < 4; i++) {
 			for(int k = 0; k < 4; k++) {
 				if(data.getAt(i, k) == 0) {
-					g.setColor(Constant.basicColor(0,Constant.getCurrentTheme()));
+					g.setColor(Color.gray);
 					g.draw3DRect(Constant.margin/2+10 + Constant.w * k,
 							Constant.margin/2+20 + Constant.w * i, 
 							Constant.w, Constant.w, true);
@@ -66,7 +56,7 @@ public class TetrisPreview extends JPanel {
 		for(int i = 0; i < 4; i++) {
 			for(int k = 0; k < 4; k++) {
 				if(data.getAt(i, k) == 0) {
-					g.setColor(Constant.basicColor(0,Constant.getCurrentTheme()));
+					g.setColor(Color.gray);
 					g.draw3DRect(Constant.margin/2+10 + Constant.w * k,
 							Constant.margin/2+200 + Constant.w * i, 
 							Constant.w, Constant.w, true);

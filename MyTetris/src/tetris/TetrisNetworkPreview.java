@@ -12,6 +12,7 @@ public class TetrisNetworkPreview extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private TetrisData data;
 	private Piece nextPiece = null;
+	private Piece holdPiece = null;
 	
 	
 	public TetrisNetworkPreview(TetrisData data) {
@@ -26,37 +27,31 @@ public class TetrisNetworkPreview extends JPanel {
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
+
 		
-		/*
-        // 패널의 배경 색상을 업데이트
-        int theme = Constant.getCurrentTheme();
-        if (theme == 1) {
-            setBackground(new Color(80, 80, 80)); // 기본 테마의 배경 색상
-        } else if (theme == 2) {
-            setBackground(new Color(255, 255, 255)); // 모노크롬 테마의 배경 색상
-        }
-        */
-		
-		//쌓인 조각들 그리기
 		for(int i = 0; i < 4; i++) {
 			for(int k = 0; k < 4; k++) {
 				if(data.getAt(i, k) == 0) {
-					g.setColor(Constant.basicColor(0,Constant.getCurrentTheme()));
-					g.draw3DRect(Constant.margin/2 + Constant.w * k,
-							Constant.margin/2 + Constant.w * i, 
+					g.setColor(Color.gray);
+					g.draw3DRect(Constant.margin/2+10 + Constant.w * k,
+							Constant.margin/2+20 + Constant.w * i, 
 							Constant.w, Constant.w, true);
 				}
 			}
 		}
-		//System.out.println(current);
+
+
 
 		if(nextPiece != null){
 			for(int i = 0; i < 4; i++) {
 				g.setColor(Constant.basicColor(nextPiece.getType(),Constant.getCurrentTheme()));
-				g.fill3DRect(Constant.margin/2 + Constant.w * (1+nextPiece.c[i]), 
-						Constant.margin/2 + Constant.w * (1+nextPiece.r[i]), 
+				g.fill3DRect(Constant.margin/2+10 + Constant.w * (1+nextPiece.c[i]), 
+						Constant.margin/2+10 + Constant.w * (1+nextPiece.r[i]), 
 						Constant.w, Constant.w, true);
 			}
 		}
+		//텍스트 그리기
+		g.setColor(Color.BLACK); // 텍스트 색상 설정
+	    g.drawString("미리보기피스", 35, 20); // 미리보기피스 텍스트 그리기
 	}
 }
