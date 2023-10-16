@@ -56,19 +56,26 @@ public class TetrisNetworkCanvas extends JPanel implements Runnable, ComponentLi
 	}
 	
 	public void paint(Graphics g) {
-
 		//화면을 지운다. 지우지 않으면 이전그림이 그대로 남아 잔상이 생김
 		bufferGraphics.clearRect(0,0,dim.width,dim.height); 
+		
+        // 패널의 배경 색상을 업데이트
+        int theme = Constant.getCurrentTheme();
+        if (theme == 1) {
+            setBackground(new Color(80, 80, 80)); // 기본 테마의 배경 색상
+        } else if (theme == 2) {
+            setBackground(new Color(255, 255, 255)); // 모노크롬 테마의 배경 색상
+        }
 		
 		//쌓인 조각들 그리기
 		for(int i = 0; i < TetrisData.ROW; i++) {
 			for(int k = 0; k < TetrisData.COL; k++) {
 				if(data.getAt(i, k) == 0) {
-					bufferGraphics.setColor(Constant.getColor(data.getAt(i, k)));
+					bufferGraphics.setColor(Constant.basicColor(data.getAt(i, k),Constant.getCurrentTheme()));
 					bufferGraphics.draw3DRect(Constant.margin/2 + Constant.w * k,
 							Constant.margin/2 + Constant.w * i, Constant.w, Constant.w, true);
 				} else {
-					bufferGraphics.setColor(Constant.getColor(data.getAt(i, k)));
+					bufferGraphics.setColor(Constant.basicColor(data.getAt(i, k),Constant.getCurrentTheme()));
 					bufferGraphics.fill3DRect(Constant.margin/2 + Constant.w * k, 
 							Constant.margin/2 + Constant.w * i, Constant.w, Constant.w, true);
 				}
@@ -78,7 +85,7 @@ public class TetrisNetworkCanvas extends JPanel implements Runnable, ComponentLi
 		// 현재 내려오고 있는 테트리스 조각 그리
 		if(current != null){
 			for(int i = 0; i < 4; i++) {
-				bufferGraphics.setColor(Constant.getColor(current.type));
+				bufferGraphics.setColor(Constant.basicColor(current.type , Constant.getCurrentTheme()));
 				bufferGraphics.fill3DRect(Constant.margin/2 + Constant.w * (current.getX()+current.c[i]), 
 						Constant.margin/2 + Constant.w * (current.getY()+current.r[i]), 
 						Constant.w, Constant.w, true);

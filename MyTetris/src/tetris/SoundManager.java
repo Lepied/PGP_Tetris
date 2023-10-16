@@ -48,6 +48,7 @@ public class SoundManager {
 		try {
 			if(clip != null)
 			{
+				clip.stop();
 				clip.close();
 			}
 			
@@ -64,6 +65,8 @@ public class SoundManager {
                 float midVolume = (maxVolume - minVolume) / 2.0f + minVolume;
                 volumeControl.setValue(midVolume);
             }
+            clip.loop(Clip.LOOP_CONTINUOUSLY); // 반복 재생
+            
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }

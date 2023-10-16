@@ -163,7 +163,7 @@ public class MyTetris extends JFrame{
 	    volumeSlider.setPaintLabels(true);
 
 	    volumeSetting.add(volumeSlider);
-	    volumeSlider.addChangeListener(new ChangeListener() { //현재 슬라이더를 통해 볼륨을 조절할 수 있으나, 슬라이더의 모습과 실제 볼륨간에 괴리감이 있음.
+	    volumeSlider.addChangeListener(new ChangeListener() { //현재 슬라이더를 통해 볼륨을 조절할 수 있으나, 슬라이더의 모습과 실제 볼륨간에 괴리감이 있음. <-기능상 문제 x
 	        @Override
 	        public void stateChanged(ChangeEvent e) {
 	            int volumeValue = volumeSlider.getValue();
@@ -172,6 +172,31 @@ public class MyTetris extends JFrame{
 	            soundManager.setVolume(volume);
 	        }
 	    });
+	    
+		JMenu themeMenu = new JMenu("테마");
+		mb.add(themeMenu);
+		
+		JMenuItem basicThemeItem = new JMenuItem("기본 테마");
+		themeMenu.add(basicThemeItem);
+		JMenuItem monochromeThemeItem = new JMenuItem("모노크롬 테마");
+		themeMenu.add(monochromeThemeItem);
+		
+		basicThemeItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Constant.setTheme(1);
+				repaint();
+			}
+		});
+		
+		monochromeThemeItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Constant.setTheme(2);
+				repaint();
+			}
+		});
+	
 	}
 	public static void main(String[] args) {
 		new MyTetris();
