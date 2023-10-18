@@ -2,6 +2,7 @@ package tetris;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentListener;
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -25,6 +26,7 @@ public class MyTetris extends JFrame{
 	private SoundManager soundManager = new SoundManager();
 	private TetrisData data;
 	private TetrisCanvas tetrisCanvas = new TetrisCanvas(this);
+	private TetrisNetworkCanvas netCanvas = new TetrisNetworkCanvas();
 	private TetrisNetworkPreview netPreview = null;
 	
 	private JPanel labelPanel; // 라벨 패널
@@ -42,8 +44,7 @@ public class MyTetris extends JFrame{
 
 		labelPanel = new JPanel(new BorderLayout());
 		gamePanel = new JPanel(new BorderLayout());
-		TetrisCanvas tetrisCanvas = new TetrisCanvas(this);
-		TetrisNetworkCanvas netCanvas = new TetrisNetworkCanvas();
+
 		TetrisPreview preview = new TetrisPreview(tetrisCanvas.getData());
 		netPreview = new TetrisNetworkPreview(netCanvas.getData());
 		createMenu(tetrisCanvas, netCanvas);
@@ -69,7 +70,7 @@ public class MyTetris extends JFrame{
 		setVisible(true);
 
 		//노트북 <-> PC바뀔때마다 경로바뀌어야함.
-		soundManager.setMusic("C:\\Users\\USER\\AppData\\Roaming\\SPB_16.6\\git\\PGP_Tetris\\MyTetris\\src\\Sound\\BGM Tetris Bradinsky.wav");
+		soundManager.setMusic("Sound/BGM Tetris Bradinsky.wav");
 		soundManager.play();
 		soundManager.setVolume(0.85f);
 
@@ -97,7 +98,7 @@ public class MyTetris extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				tetrisCanvas.start();
 				netCanvas.start();
-				soundManager.setMusic("C:\\Users\\gang0\\OneDrive\\바탕 화면\\MyTetris20230922\\src\\Sound\\BGM Tetris_Nintendo music.wav");
+				soundManager.setMusic("Sound/BGM Tetris_Nintendo music.wav");
 				soundManager.play();
 				soundManager.setVolume(0.8f);
 			}

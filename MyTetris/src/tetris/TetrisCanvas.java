@@ -31,7 +31,8 @@ public class TetrisCanvas extends JPanel implements Runnable, KeyListener, Compo
 	private Dimension dim;
 	private TetrisPreview preview;
 	private MyTetris myTetris;
-
+	private SoloPlay soloPlay;
+	
 	
 	private Piece holdPiece;
 	private Piece TempPiece;
@@ -40,21 +41,36 @@ public class TetrisCanvas extends JPanel implements Runnable, KeyListener, Compo
 	public int level;
 	public int score;
 	protected boolean canHold = true;
+	public int gamemode;
 	
 	public TetrisCanvas(MyTetris t) {
 		this.myTetris = t;
 		data = new TetrisData();
 		addKeyListener(this);		
 		addComponentListener(this);
+		gamemode = 1;
+		
 	}
 	
+	public TetrisCanvas(SoloPlay s) {
+		// TODO Auto-generated constructor stub
+		
+		data = new TetrisData();
+		addKeyListener(this);		
+		addComponentListener(this);
+		this.soloPlay = s;
+		gamemode = 2;
+		
+	}
+
 	public void setTetrisPreview(TetrisPreview preview) {
 		this.preview = preview;
 	}
 	
 	//버퍼 초기 함수
 	public void initBufferd() {
-        dim = getSize();
+		dim= getPreferredSize();
+        //dim = getSize();
         System.out.println(dim.getSize());
         //화면의 크기를 가져온다.
         setBackground(Color.white);
@@ -86,6 +102,9 @@ public class TetrisCanvas extends JPanel implements Runnable, KeyListener, Compo
 	}
 	
 	public void paint(Graphics g) {
+		if(dim == null)
+			return;
+		
 		super.paint(g);
 	     // 패널의 배경 색상을 업데이트
         int theme = Constant.getCurrentTheme();
@@ -94,8 +113,6 @@ public class TetrisCanvas extends JPanel implements Runnable, KeyListener, Compo
         } else if (theme == 2) {
             setBackground(new Color(255, 255, 255)); // 모노크롬 테마의 배경 색상
         }
-
-        bufferGraphics.setColor(getBackground());
 		//화면을 지운다. 지우지 않으면 이전그림이 그대로 남아 잔상이 생김
 		bufferGraphics.clearRect(0,0,dim.width,dim.height); 
 		
@@ -148,9 +165,17 @@ public class TetrisCanvas extends JPanel implements Runnable, KeyListener, Compo
 		
 		//가상버퍼(이미지)를 원본 버퍼에 복사
 		g.drawImage(offscreen,0,0,this);
-		myTetris.refresh();
+		if(gamemode ==1)
+		{
+			myTetris.refresh();
+		}
+		else
+		{
+		}
+	
+		
 	}
-
+	
 	public Dimension getPreferredSize(){ // 테트리스 판의 크기 지정
 		int tw = Constant.w * TetrisData.COL + Constant.margin;
 		int th = Constant.w * TetrisData.ROW + Constant.margin;
@@ -236,7 +261,14 @@ public class TetrisCanvas extends JPanel implements Runnable, KeyListener, Compo
 				}
 				score = data.getLine() * 175 * Constant.level;
 				System.out.println("현재점수 : "+ score);
-				myTetris.updateScore(score);
+				if(gamemode == 1)
+				{
+					myTetris.updateScore(score);
+				}
+				else {
+					soloPlay.updateScore(score);
+				}
+				
 				
 				repaint();
 			} catch(Exception e){ }
@@ -279,8 +311,16 @@ public class TetrisCanvas extends JPanel implements Runnable, KeyListener, Compo
 			data.removeLines();
 			score = data.getLine() * 175 * Constant.level;
 			worker.interrupt();
-			myTetris.updateScore(score);
-			repaint();
+			if(gamemode ==1)
+			{
+				myTetris.updateScore(score);
+				repaint();
+			}
+			else
+			{
+				soloPlay.updateScore(score);
+				repaint();
+			}
 			break;
 		case 32:
 			// 블록 하드 드롭 (임시)
@@ -297,7 +337,13 @@ public class TetrisCanvas extends JPanel implements Runnable, KeyListener, Compo
 		    data.removeLines();
 		    score = data.getLine() * 175 * Constant.level;
 		    worker.interrupt();
-		    myTetris.updateScore(score);
+		    if(gamemode ==1)
+		    {
+		    	myTetris.updateScore(score);
+		    }
+		    else {
+		    	soloPlay.updateScore(score);
+		    }
 		    repaint();
 		    break;
 		case 16:
@@ -358,5 +404,6 @@ public class TetrisCanvas extends JPanel implements Runnable, KeyListener, Compo
 	@Override
 	public void update(Graphics g) {
 		paint(g);
+		
 	}
 }

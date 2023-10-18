@@ -15,7 +15,8 @@ public class TetrisNetworkCanvas extends JPanel implements Runnable, ComponentLi
 	protected Thread worker;
 	protected TetrisData data;
 	protected boolean stop, makeNew;
-	protected Piece   current;
+	protected Piece  current;
+	private MyTetris myTetris;
 	
 	//그래픽스 함수를 사용하기 위한 클래스
 	private Graphics bufferGraphics = null;
@@ -25,11 +26,9 @@ public class TetrisNetworkCanvas extends JPanel implements Runnable, ComponentLi
 	private Dimension dim;
 	
 	public TetrisNetworkCanvas() {
+		
 		data = new TetrisData();
 		addComponentListener(this);
-	}
-	public void setTetrisPreview(TetrisPreview preview) {
-		//this.preview = preview;
 	}
 	//버퍼 초기 함수
 	public void initBufferd() {
@@ -44,6 +43,7 @@ public class TetrisNetworkCanvas extends JPanel implements Runnable, ComponentLi
         //가상버퍼(이미지)로 부터 그래픽스 객체를 얻어옴
 	}
 	public void start() {    // 게임 시작
+		
 		data.clear();
 		worker = new Thread(this);
 		worker.start();
@@ -56,7 +56,10 @@ public class TetrisNetworkCanvas extends JPanel implements Runnable, ComponentLi
 	}
 	
 	public void paint(Graphics g) {
+		if(dim == null)
+			return;
 		
+		bufferGraphics.clearRect(0,0,dim.width,dim.height); 
         // 패널의 배경 색상을 업데이트
         int theme = Constant.getCurrentTheme();
         if (theme == 1) {
@@ -65,7 +68,7 @@ public class TetrisNetworkCanvas extends JPanel implements Runnable, ComponentLi
             setBackground(new Color(255, 255, 255)); // 모노크롬 테마의 배경 색상
         }
     	//화면을 지운다. 지우지 않으면 이전그림이 그대로 남아 잔상이 생김
-		bufferGraphics.clearRect(0,0,dim.width,dim.height); 
+	
         
 		//쌓인 조각들 그리기
 		for(int i = 0; i < TetrisData.ROW; i++) {

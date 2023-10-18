@@ -14,7 +14,7 @@ public class MainMenu extends JFrame {
         getContentPane().add(mainMenuPanel, BorderLayout.CENTER);
         
         JPanel imagePanel = new JPanel();
-        ImageIcon tetrisImage = new ImageIcon("C:\\Users\\USER\\AppData\\Roaming\\SPB_16.6\\git\\PGP_Tetris\\MyTetris\\src\\images\\tetrislogo.png");
+        ImageIcon tetrisImage = new ImageIcon("images/tetrislogo.png");
         double scale = 0.3;
         int width = (int)(tetrisImage.getIconWidth()*scale);
         int height = (int)(tetrisImage.getIconHeight()*scale);
@@ -41,26 +41,23 @@ public class MainMenu extends JFrame {
         mainMenuPanel.add(optionsButton);
         mainMenuPanel.add(exitButton);
         
-        //soloButton.setPreferredSize(buttonSize);
-        //multiplayerButton.setPreferredSize(buttonSize);
-        //optionsButton.setPreferredSize(buttonSize);
-        //exitButton.setPreferredSize(buttonSize);
 
         soloButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // 혼자하기 버튼 클릭 시 실행할 코드
-                // TetrisCanvas와 Preview 캔버스를 화면에 표시
-                // 예: new SoloTetrisGame();
+                SoloPlay.main(new String[0]);
+                MainMenu.this.setExtendedState(JFrame.NORMAL); // 원래 크기로 복원
+
             }
         });
 
         multiplayerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // 같이하기 버튼 클릭 시 실행할 코드
-                // 위에서 구현한 MyTetris 클래스의 기능과 UI를 활용
-                // 예: MyTetris의 인스턴스를 만들어 show 메서드 호출
+            	//new MyTetris();
+            	MyTetris.main(new String[0]);
+            	
+
             }
         });
 
@@ -83,6 +80,7 @@ public class MainMenu extends JFrame {
 
         setLocationRelativeTo(null); // 화면 중앙에 표시
         setVisible(true);
+        
     }
 
     public static void main(String[] args) {
