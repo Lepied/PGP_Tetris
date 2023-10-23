@@ -7,6 +7,7 @@ public class Constant {
 	public static final int     interval = 2000;
 	public static int     	level = 2;
 	private static Color[] colors = null;  // 테트리스 배경 및 조각 색
+	public static Color[] userColors = null;  //사용자 설정 색
 	private static int currentTheme = 1;
 	
 	public static Color basicColor(int index, int theme) {
@@ -41,6 +42,20 @@ public class Constant {
 						colors[8] = new Color(240, 240, 240); //테두리색(흰색) 
 					}
 					return colors[index];
+			case 3: // 사용자 설정 테마
+				if(userColors == null) {
+					userColors = new Color[9];
+					userColors[0] = new Color(240, 240, 240); // 배경색
+					userColors[1] = new Color(255, 0, 0); //빨간색
+					userColors[2] = new Color(0, 255, 0); //녹색
+					userColors[3] = new Color(0, 200, 255); //노란색
+					userColors[4] = new Color(255, 255, 0); //하늘색
+					userColors[5] = new Color(255, 150, 0); //황토색
+					userColors[6] = new Color(210, 0, 240); //보라색
+					userColors[7] = new Color(40, 0, 240); //파란색
+					userColors[8] = new Color(80,80,80); //테두리색(검은회색) 
+				}
+				return userColors[index];
 			default: // 기본 테마
 				if(colors == null) {
 					colors = new Color[9];

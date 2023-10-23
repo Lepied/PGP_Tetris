@@ -9,6 +9,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -41,7 +42,9 @@ public class MyTetris extends JFrame{
 		setTitle("테트리스");
 		setSize(1280, 600);
 		data = new TetrisData();
-
+		
+	    setLocationRelativeTo(null);
+	    
 		labelPanel = new JPanel(new BorderLayout());
 		gamePanel = new JPanel(new BorderLayout());
 
@@ -80,7 +83,7 @@ public class MyTetris extends JFrame{
     }
 
     public void updateLevel() {
-        levelLabel.setText("Level : " + (Constant.level-1));
+        levelLabel.setText("Level : " + (Constant.level-1) +"   ");
     }
 	
 	public void createMenu(TetrisCanvas tetrisCanvas, TetrisNetworkCanvas netCanvas) {
@@ -181,6 +184,26 @@ public class MyTetris extends JFrame{
 		themeMenu.add(basicThemeItem);
 		JMenuItem monochromeThemeItem = new JMenuItem("모노크롬 테마");
 		themeMenu.add(monochromeThemeItem);
+		JMenuItem usersThemeItem = new JMenuItem("사용자 설정 테마");
+		themeMenu.add(usersThemeItem);
+		
+		JMenuItem chooseColorItem = new JMenuItem("고스트피스");
+		themeMenu.add(chooseColorItem);
+		
+		chooseColorItem.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        Color shadowPieceColor = Color.GRAY;
+				// JColorChooser를 통해 색을 선택합니다.
+		        Color selectedColor = JColorChooser.showDialog(MyTetris.this, "고스트 피스 색 설정", shadowPieceColor);
+		        if (selectedColor != null) {
+		            shadowPieceColor = selectedColor;
+		            tetrisCanvas.setShadowPieceColor(selectedColor);
+		            repaint();
+		        }
+		    }
+		});
+		
 		
 		basicThemeItem.addActionListener(new ActionListener() {
 			@Override
@@ -190,6 +213,8 @@ public class MyTetris extends JFrame{
 			}
 		});
 		
+		
+		
 		monochromeThemeItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -197,6 +222,17 @@ public class MyTetris extends JFrame{
 				repaint();
 			}
 		});
+		
+		usersThemeItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Constant.setTheme(3);
+				UserThemeDialog dialog = new UserThemeDialog(MyTetris.this);
+			    dialog.setVisible(true);
+				repaint();
+			}
+		});
+		
 	
 	}
 	public static void main(String[] args) {
