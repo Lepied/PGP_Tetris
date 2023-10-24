@@ -303,8 +303,8 @@ public class TetrisCanvas extends JPanel implements Runnable, KeyListener, Compo
 				makeNew = true;
 				if(current.copy()){
 					stop();
-					  int  score = data.getLine() * 175 * Constant.level ;
-						JOptionPane.showMessageDialog(this,"게임끝\n점수 : " + score);
+					int  score = data.getLine() * 175 * Constant.level ;
+					JOptionPane.showMessageDialog(this,"게임끝\n점수 : " + score);
 				}
 				current = null;
 			}
