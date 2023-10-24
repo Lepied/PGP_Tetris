@@ -74,7 +74,7 @@ public class TetrisNetworkCanvas extends JPanel implements Runnable, ComponentLi
 		for(int i = 0; i < TetrisData.ROW; i++) {
 			for(int k = 0; k < TetrisData.COL; k++) {
 				if(data.getAt(i, k) == 0) {
-					bufferGraphics.setColor(Color.DARK_GRAY);
+					bufferGraphics.setColor(Constant.basicColor(8,Constant.getCurrentTheme()));
 					bufferGraphics.draw3DRect(Constant.margin/2 + Constant.w * k,
 							Constant.margin/2 + Constant.w * i, Constant.w, Constant.w, true);
 					

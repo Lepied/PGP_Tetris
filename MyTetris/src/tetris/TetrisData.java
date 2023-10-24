@@ -6,11 +6,13 @@ public class TetrisData {
 	public int data[][];  // ROW x COL 의 배열
 	private int line;      // 지운 줄 수
 	private int score;
+	private int lineRiser; // 레벨 비례로 지워야하는 줄수 증가 시키기 
+	public boolean levelUP = false;
 	
 
 	public TetrisData() {
 		data = new int[ROW][COL];
-		
+		lineRiser = 5;
 		clear();
 	}
 	
@@ -61,6 +63,7 @@ public class TetrisData {
 					}
 				}
 				i++;
+				levelSetting();
 			}
 		}
 	}
@@ -80,6 +83,17 @@ public class TetrisData {
 			}
 			System.out.println();
 		}
+	}
+	public void levelSetting()
+	{
+		levelUP = true;
+		if(line>lineRiser)
+		{
+			int tempScore;
+			Constant.level = Constant.level+1;
+			lineRiser = lineRiser + 10;
+		}
+		
 	}
 	
 	public void loadNetworkData(String input) {

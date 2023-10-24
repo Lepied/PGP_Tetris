@@ -37,6 +37,8 @@ public class TetrisCanvas extends JPanel implements Runnable, KeyListener, Compo
 	private Piece holdPiece;
 	private Piece TempPiece;
 	private Piece shadowPiece;
+	private Color shadowPieceColor = Color.GRAY;
+
 	
 	public int level;
 	public int score;
@@ -105,7 +107,6 @@ public class TetrisCanvas extends JPanel implements Runnable, KeyListener, Compo
 		if(dim == null)
 			return;
 		
-		super.paint(g);
 	     // 패널의 배경 색상을 업데이트
         int theme = Constant.getCurrentTheme();
         if (theme == 1) {
@@ -122,7 +123,7 @@ public class TetrisCanvas extends JPanel implements Runnable, KeyListener, Compo
 		for(int i = 0; i < TetrisData.ROW; i++) {
 			for(int k = 0; k < TetrisData.COL; k++) {
 				if(data.getAt(i, k) == 0) {
-					bufferGraphics.setColor(Constant.basicColor(data.getAt(i, k),Constant.getCurrentTheme()));
+					bufferGraphics.setColor(Constant.basicColor(8,Constant.getCurrentTheme()));
 					bufferGraphics.draw3DRect(Constant.margin/2 + Constant.w * k,
 							Constant.margin/2 + Constant.w * i, Constant.w, Constant.w, true);
 					
@@ -143,7 +144,7 @@ public class TetrisCanvas extends JPanel implements Runnable, KeyListener, Compo
 		    while (!shadowPiece.moveDown()) {
 		    }
 			for(int i = 0; i < 4; i++) {
-				bufferGraphics.setColor(Color.GRAY);
+				bufferGraphics.setColor(shadowPieceColor);
 				bufferGraphics.fill3DRect(Constant.margin/2 + Constant.w * (shadowPiece.getX()+shadowPiece.c[i]), 
 						Constant.margin/2 + Constant.w * (shadowPiece.getY()+shadowPiece.r[i]), 
 						Constant.w, Constant.w, true);
@@ -174,6 +175,9 @@ public class TetrisCanvas extends JPanel implements Runnable, KeyListener, Compo
 		}
 	
 		
+	}
+	public void setShadowPieceColor(Color color) {
+	    this.shadowPieceColor = color;
 	}
 	
 	public Dimension getPreferredSize(){ // 테트리스 판의 크기 지정
@@ -264,9 +268,11 @@ public class TetrisCanvas extends JPanel implements Runnable, KeyListener, Compo
 				if(gamemode == 1)
 				{
 					myTetris.updateScore(score);
+					myTetris.updateLevel();
 				}
 				else {
 					soloPlay.updateScore(score);
+					soloPlay.updateLevel();
 				}
 				
 				
@@ -314,11 +320,13 @@ public class TetrisCanvas extends JPanel implements Runnable, KeyListener, Compo
 			if(gamemode ==1)
 			{
 				myTetris.updateScore(score);
+				myTetris.updateLevel();
 				repaint();
 			}
 			else
 			{
 				soloPlay.updateScore(score);
+				soloPlay.updateLevel();
 				repaint();
 			}
 			break;
@@ -340,9 +348,11 @@ public class TetrisCanvas extends JPanel implements Runnable, KeyListener, Compo
 		    if(gamemode ==1)
 		    {
 		    	myTetris.updateScore(score);
+		    	myTetris.updateScore(score);
 		    }
 		    else {
 		    	soloPlay.updateScore(score);
+		    	soloPlay.updateLevel();
 		    }
 		    repaint();
 		    break;
