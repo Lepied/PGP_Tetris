@@ -34,9 +34,11 @@ public class SoloPlay extends JFrame{
 	private JLabel scoreLabel;
     private JLabel levelLabel;
     
+    private int width = 1280;
+    private int height = 600;
 	public SoloPlay() {
 		setTitle("테트리스");
-		setSize(1280, 600);
+		setSize(width, height);
 		data = new TetrisData();
 
 	    setLocationRelativeTo(null);
@@ -62,7 +64,7 @@ public class SoloPlay extends JFrame{
         add(gamePanel);
         
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		pack();
+		//pack(); 자동으로 컴포넌트들에 맞게 크기수정
 		setVisible(true);
 
 		soundManager.setMusic("Sound/BGM Tetris Bradinsky.wav");
@@ -72,6 +74,27 @@ public class SoloPlay extends JFrame{
 		pack();
 
 	}
+	
+	public int getWidth()
+	{
+		return width;
+	}
+	
+	public void setWidth(int newWidth)
+	{
+		width = newWidth;
+	}
+	
+	public int getHeight()
+	{
+		return height;
+	}
+	
+	public void setHeight(int newHeight)
+	{
+		height = newHeight;
+	}
+	
     public void updateScore(int newScore) {
         scoreLabel.setText("Score : " + newScore);
     }
@@ -121,7 +144,7 @@ public class SoloPlay extends JFrame{
 	    volumeSlider.setPaintLabels(true);
 
 	    volumeSetting.add(volumeSlider);
-	    volumeSlider.addChangeListener(new ChangeListener() { //현재 슬라이더를 통해 볼륨을 조절할 수 있으나, 슬라이더의 모습과 실제 볼륨간에 괴리감이 있음. <-기능상 문제 x
+	    volumeSlider.addChangeListener(new ChangeListener() { 
 	        @Override
 	        public void stateChanged(ChangeEvent e) {
 	            int volumeValue = volumeSlider.getValue();

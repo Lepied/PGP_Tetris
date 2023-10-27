@@ -14,10 +14,12 @@ public class MainMenu extends JFrame {
         getContentPane().add(mainMenuPanel, BorderLayout.CENTER);
         
         JPanel imagePanel = new JPanel();
-        ImageIcon tetrisImage = new ImageIcon("images/tetrislogo.png");
+        ImageIcon tetrisImage = new ImageIcon("Mytetris/images/tetrislogo.png");
+        //ImageIcon tetrisImage = new ImageIcon("C:\\Users\\gang0\\git\\PGP_Tetris\\MyTetris\\images\\tetrislogo.png");
         double scale = 0.3;
         int width = (int)(tetrisImage.getIconWidth()*scale);
         int height = (int)(tetrisImage.getIconHeight()*scale);
+  
         Image img = tetrisImage.getImage().getScaledInstance
         		(width, height, DO_NOTHING_ON_CLOSE);
         ImageIcon resizedTetrisImage = new ImageIcon(img);
@@ -66,7 +68,7 @@ public class MainMenu extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // 옵션 버튼 클릭 시 실행할 코드
                 // 옵션 화면을 표시
-                // 예: new OptionsMenu();
+            	new OptionMenu();
             }
         });
 
