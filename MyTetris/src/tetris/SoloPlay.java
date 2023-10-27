@@ -17,9 +17,29 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import java.io.*;
-import java.net.*;
-import java.util.*;
+import javax.swing.JColorChooser;
+import java.awt.Color;
+
+import java.io.File; //
+
+import javax.sound.sampled.AudioFormat; // 
+import javax.sound.sampled.AudioInputStream; //
+import javax.sound.sampled.AudioSystem; //
+import javax.sound.sampled.Clip; //
+import javax.sound.sampled.DataLine; //
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.LineEvent;
+import javax.sound.sampled.LineListener;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.Timer;
+import javax.swing.JDialog;
+import javax.swing.JButton;
 
 public class SoloPlay extends JFrame{
 
@@ -34,12 +54,15 @@ public class SoloPlay extends JFrame{
 	private JLabel scoreLabel;
     private JLabel levelLabel;
     
-    private int width = 1280;
-    private int height = 600;
+    public static int width = 1280;
+    public static int height = 600;
+    public static boolean isWindowOn = false;
+    
 	public SoloPlay() {
 		setTitle("테트리스");
 		setSize(width, height);
 		data = new TetrisData();
+		isWindowOn = true;
 
 	    setLocationRelativeTo(null);
 		
@@ -208,8 +231,24 @@ public class SoloPlay extends JFrame{
 				repaint();
 			}
 		});
+		
+		JMenu OptionMenu = new JMenu("옵션");
+		mb.add(OptionMenu);
+
+        JMenuItem optionItem = new JMenuItem("옵션 화면 열기");
+        OptionMenu.add(optionItem);
+        optionItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                OptionMenu optionMenu = new OptionMenu();
+                optionMenu.setVisible(true);
+            }
+        });
 	}
+	
+
 	public static void main(String[] args) {
+
 		new SoloPlay();
 	}
 	

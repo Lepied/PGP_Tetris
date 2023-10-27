@@ -14,7 +14,7 @@ public class MainMenu extends JFrame {
         getContentPane().add(mainMenuPanel, BorderLayout.CENTER);
         
         JPanel imagePanel = new JPanel();
-        ImageIcon tetrisImage = new ImageIcon("Mytetris/images/tetrislogo.png");
+        ImageIcon tetrisImage = new ImageIcon("images/tetrislogo.png");
         //ImageIcon tetrisImage = new ImageIcon("C:\\Users\\gang0\\git\\PGP_Tetris\\MyTetris\\images\\tetrislogo.png");
         double scale = 0.3;
         int width = (int)(tetrisImage.getIconWidth()*scale);
@@ -32,15 +32,12 @@ public class MainMenu extends JFrame {
         soloButton.setBounds(125, 91, 120, 30);
         JButton multiplayerButton = new JButton("같이하기");
         multiplayerButton.setBounds(125, 131, 120, 30);
-        JButton optionsButton = new JButton("옵션");
-        optionsButton.setBounds(125, 171, 120, 30);
         JButton exitButton = new JButton("종료");
         exitButton.setBounds(125, 211, 120, 30);
         mainMenuPanel.setLayout(null);
 
         mainMenuPanel.add(soloButton);
         mainMenuPanel.add(multiplayerButton);
-        mainMenuPanel.add(optionsButton);
         mainMenuPanel.add(exitButton);
         
 
@@ -63,14 +60,6 @@ public class MainMenu extends JFrame {
             }
         });
 
-        optionsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // 옵션 버튼 클릭 시 실행할 코드
-                // 옵션 화면을 표시
-            	new OptionMenu();
-            }
-        });
 
         exitButton.addActionListener(new ActionListener() {
             @Override

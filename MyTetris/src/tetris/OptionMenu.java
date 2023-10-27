@@ -31,6 +31,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class OptionMenu extends JFrame  {
 	 private SoundManager soundManager;
 	 private JComboBox<String> resolutionComboBox; // 드롭다운 목록
+	 private SoloPlay soloPlay;
 	 
 	 public OptionMenu() {
 	        setTitle("옵션 메뉴");
@@ -74,28 +75,43 @@ public class OptionMenu extends JFrame  {
 	        JLabel resolutionLabel = new JLabel("- 창 크기 -");
 	        constraints.gridy = 2;
 	        optionsPanel.add(resolutionLabel, constraints);
+	
+	        JLabel alertLabel = new JLabel("게임이 실행중인 상태에서만 정상 작동 됩니다.");
+	        constraints.gridy = 3;
+	        optionsPanel.add(alertLabel, constraints);
+	        
 	        
 	        String[] resolutions = {"800x600", "1024x768", "1280x720", "1920x1080"}; // 정해진 해상도 목록
 	        resolutionComboBox = new JComboBox<>(resolutions);
-	        /*
+
 	        // 드롭다운 목록의 선택 이벤트 처리
 	        resolutionComboBox.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
 	                String selectedResolution = (String) resolutionComboBox.getSelectedItem();
-	                if (selectedResolution.equals("800x600")) {
-	                    soloPlay.setSize(800, 600);
-	                } else if (selectedResolution.equals("1024x768")) {
-	                    soloPlay.setSize(1024, 768);
-	                } else if (selectedResolution.equals("1280x720")) {
-	                    soloPlay.setSize(1280, 720);
-	                } else if (selectedResolution.equals("1920x1080")) {
-	                    soloPlay.setSize(1920, 1080);
+	                soloPlay = new SoloPlay();
+	                if (soloPlay != null && SoloPlay.isWindowOn) {
+	                    int newWidth = 0;
+	                    int newHeight = 0;
+
+	                    if (selectedResolution.equals("800x600")) {
+	                        newWidth = 800;
+	                        newHeight = 600;
+	                    } else if (selectedResolution.equals("1024x768")) {
+	                        newWidth = 1024;
+	                        newHeight = 768;
+	                    } else if (selectedResolution.equals("1280x720")) {
+	                        newWidth = 1280;
+	                        newHeight = 720;
+	                    } else if (selectedResolution.equals("1920x1080")) {
+	                        newWidth = 1920;
+	                        newHeight = 1080;
+	                    }
 	                }
 	            }
 	        });
-	        */
-	        constraints.gridy = 3;
+	        
+	        constraints.gridy = 4;
 	        optionsPanel.add(resolutionComboBox, constraints);
 	        
 
@@ -109,7 +125,7 @@ public class OptionMenu extends JFrame  {
 	            }
 	        });
 	        
-	        constraints.gridy = 4;
+	        constraints.gridy = 5;
 	        optionsPanel.add(saveButton, constraints);
 	        
 

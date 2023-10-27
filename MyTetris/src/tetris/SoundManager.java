@@ -71,6 +71,30 @@ public class SoundManager {
             e.printStackTrace();
         }
 	}
+	
+		public void setEffectSound(String filePath)
+		{
+			try {
+				
+				AudioInputStream audioInputStream = 
+						AudioSystem.getAudioInputStream(new File(filePath));
+	            clip = AudioSystem.getClip(); // 새로운 클립을 생성
+	            clip.open(audioInputStream);
+	            volumeControl = (FloatControl) clip.getControl
+	            		(FloatControl.Type.MASTER_GAIN); // 볼륨 컨트롤을 업데이트합니다.
+	            
+	            if (volumeControl != null) { //볼륨 기초값 설정
+	                float minVolume = volumeControl.getMinimum();
+	                float maxVolume = volumeControl.getMaximum();
+	                float midVolume = (maxVolume - minVolume) / 2.0f + minVolume;
+	                volumeControl.setValue(midVolume);
+	            }
+	                
+	        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+	            e.printStackTrace();
+	        }
+		}
+	
     public float getVolume() {
         if (volumeControl != null && clip != null) {
             float minVolume = volumeControl.getMinimum();

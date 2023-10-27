@@ -16,9 +16,38 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import java.io.*;
-import java.net.*;
-import java.util.*;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import javax.swing.JColorChooser;
+import java.awt.Color;
+
+import java.io.File; //
+
+import javax.sound.sampled.AudioFormat; // 
+import javax.sound.sampled.AudioInputStream; //
+import javax.sound.sampled.AudioSystem; //
+import javax.sound.sampled.Clip; //
+import javax.sound.sampled.DataLine; //
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.LineEvent;
+import javax.sound.sampled.LineListener;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JToolBar;
+import javax.swing.Timer;
+import javax.swing.JDialog;
+import javax.swing.JButton;
 
 public class MyTetris extends JFrame{
 

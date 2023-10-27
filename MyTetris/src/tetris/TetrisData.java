@@ -1,5 +1,17 @@
 package tetris;
 
+import javax.sound.sampled.AudioFormat; 
+import javax.sound.sampled.AudioInputStream; //
+import javax.sound.sampled.AudioSystem; //
+import javax.sound.sampled.Clip; //
+import javax.sound.sampled.DataLine; //
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.LineEvent;
+import javax.sound.sampled.LineListener;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
+
 public class TetrisData {
 	public static final int ROW = 20;
 	public static final int COL = 10;
@@ -9,6 +21,7 @@ public class TetrisData {
 	private int lineRiser; // 레벨 비례로 지워야하는 줄수 증가 시키기 
 	public boolean levelUP = false;
 	
+	private SoundManager soundManager = new SoundManager();
 
 	public TetrisData() {
 		data = new int[ROW][COL];
@@ -51,6 +64,9 @@ public class TetrisData {
 				}
 			}
 			if(done){
+				soundManager.setEffectSound("Sound/lineSound.wav");
+				soundManager.setVolume(1f);
+	            soundManager.play();
 				line++;
 				for(int x = i; x > 0; x--) {
 					for(int y = 0; y < COL; y++){
@@ -64,6 +80,7 @@ public class TetrisData {
 				}
 				i++;
 				levelSetting();
+				
 			}
 		}
 	}
