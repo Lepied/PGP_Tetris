@@ -48,7 +48,7 @@ public class OptionMenu extends JFrame  {
 	        constraints.insets = new Insets(5, 5, 5, 5);
 
 	        // 볼륨 슬라이더 추가
-	        JLabel volumeLabel = new JLabel("- 볼륨 -");
+	        JLabel volumeLabel = new JLabel("- BGM 볼륨 -");
 	        constraints.gridx = 0;
 	        constraints.gridy = 0;
 	        optionsPanel.add(volumeLabel, constraints);
@@ -61,6 +61,20 @@ public class OptionMenu extends JFrame  {
 		    constraints.gridy = 1;
 		    optionsPanel.add(volumeSlider, constraints);
 		    
+	        // 볼륨 슬라이더 추가
+	        JLabel VFXvolumeLabel = new JLabel("- VFX 볼륨 -");
+	        constraints.gridx = 0;
+	        constraints.gridy = 2;
+	        optionsPanel.add(VFXvolumeLabel, constraints);
+	        
+	        JSlider VFXvolumeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, (int)(soundManager.getVFXVolume() * 100));
+	        VFXvolumeSlider.setMajorTickSpacing(10);
+	        VFXvolumeSlider.setMinorTickSpacing(1);
+	        VFXvolumeSlider.setPaintTicks(true);
+	        VFXvolumeSlider.setPaintLabels(true);
+		    constraints.gridy = 3;
+		    optionsPanel.add(VFXvolumeSlider, constraints);
+		    
 		    
 		    volumeSlider.addChangeListener(new ChangeListener() { 
 		        @Override
@@ -72,13 +86,23 @@ public class OptionMenu extends JFrame  {
 		        }
 		    });
 		    
+		    VFXvolumeSlider.addChangeListener(new ChangeListener() { 
+		        @Override
+		        public void stateChanged(ChangeEvent e) {
+		            int volumeValue = VFXvolumeSlider.getValue();
+		            float volume = volumeValue / 100.0f;
+		            System.out.println("볼륨 : "+volume);
+		            soundManager.setVFXVolume(volume);
+		        }
+		    });
+		    
 		    //창 크기 드롭다운 목록 추가
 	        JLabel resolutionLabel = new JLabel("- 창 크기 -");
-	        constraints.gridy = 2;
+	        constraints.gridy = 4;
 	        optionsPanel.add(resolutionLabel, constraints);
 	
 	        JLabel alertLabel = new JLabel("게임이 실행중인 상태에서만 정상 작동 됩니다.");
-	        constraints.gridy = 3;
+	        constraints.gridy = 5;
 	        optionsPanel.add(alertLabel, constraints);
 	        
 	        
@@ -114,7 +138,7 @@ public class OptionMenu extends JFrame  {
 	            }
 	        });
 	        
-	        constraints.gridy = 4;
+	        constraints.gridy = 6;
 	        optionsPanel.add(resolutionComboBox, constraints);
 	        
 
@@ -127,7 +151,7 @@ public class OptionMenu extends JFrame  {
 	            }
 	        });
 	        
-	        constraints.gridy = 5;
+	        constraints.gridy = 7;
 	        optionsPanel.add(saveButton, constraints);
 	        
 

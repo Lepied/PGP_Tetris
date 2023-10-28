@@ -141,6 +141,7 @@ public class SoloPlay extends JFrame{
 				soundManager.setMusic("Sound/BGM Tetris_Nintendo music.wav");
 				soundManager.play();
 				soundManager.setVolume(0.8f);
+				soundManager.setVFXVolume(1.0f);
 			}
 		});
 		
@@ -155,10 +156,37 @@ public class SoloPlay extends JFrame{
 		JMenu soundMenu = new JMenu("볼륨");
 		mb.add(soundMenu);
 		
-		JMenuItem volumeSetting = new JMenuItem("볼륨 설정");
+		JMenuItem pauseMenu = new JMenuItem("BGM 일시정지");
+		soundMenu.add(pauseMenu);
+		
+		pauseMenu.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		    	if(soundManager.clip.isRunning())
+		    	{
+		    		soundManager.pause();
+		    	}
+		    	else
+		    	{
+		    		soundManager.play();
+		    	}
+		    	
+		    }
+		});
+		
+		JMenuItem volumeSetting = new JMenuItem("BGM 볼륨 설정");
 		soundMenu.add(volumeSetting);
 		
+		JMenuItem VFXvolumeSetting = new JMenuItem("효과음 볼륨 설정");
+		soundMenu.add(VFXvolumeSetting);
+		
 		JSlider volumeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, (int)(soundManager.getVolume() * 100));
+	    volumeSlider.setMajorTickSpacing(10);
+	    volumeSlider.setMinorTickSpacing(1);
+	    volumeSlider.setPaintTicks(true);
+	    volumeSlider.setPaintLabels(true);
+	    
+	    JSlider VFXvolumeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, (int)(soundManager.getVFXVolume() * 100));
 	    volumeSlider.setMajorTickSpacing(10);
 	    volumeSlider.setMinorTickSpacing(1);
 	    volumeSlider.setPaintTicks(true);
@@ -175,6 +203,18 @@ public class SoloPlay extends JFrame{
 	        }
 	    });
 	    
+
+	    VFXvolumeSetting.add(VFXvolumeSlider);
+	    VFXvolumeSlider.addChangeListener(new ChangeListener() { 
+	        @Override
+	        public void stateChanged(ChangeEvent e) {
+	            int volumeValue = VFXvolumeSlider.getValue();
+	            float volume = volumeValue / 100.0f;
+	            System.out.println("볼륨 : "+volume);
+	            soundManager.setVFXVolume(volume);
+	        }
+	    });
+	    
 		JMenu themeMenu = new JMenu("테마");
 		mb.add(themeMenu);
 		
@@ -186,6 +226,8 @@ public class SoloPlay extends JFrame{
 		JMenuItem usersThemeItem = new JMenuItem("사용자 설정 테마");
 		themeMenu.add(usersThemeItem);
 		
+		JMenuItem resetThemeItem = new JMenuItem("테마 초기화");
+		themeMenu.add(resetThemeItem);
 		
 		JMenuItem chooseColorItem = new JMenuItem("고스트피스");
 		themeMenu.add(chooseColorItem);
@@ -226,6 +268,14 @@ public class SoloPlay extends JFrame{
 				Constant.setTheme(3);
 				UserThemeDialog dialog = new UserThemeDialog(SoloPlay.this);
 			    dialog.setVisible(true);
+				repaint();
+			}
+		});
+		
+		resetThemeItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Constant.setTheme(9999);
 				repaint();
 			}
 		});

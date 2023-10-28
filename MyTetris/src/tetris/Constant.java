@@ -59,7 +59,7 @@ public class Constant {
 			default: // 기본 테마
 				if(colors == null) {
 					colors = new Color[9];
-					colors[0] = new Color(80, 80, 80); // 배경색(검은회색)
+					colors[0] = new Color(240, 240, 240); // 배경색
 					colors[1] = new Color(255, 0, 0); //빨간색
 					colors[2] = new Color(0, 255, 0); //녹색
 					colors[3] = new Color(0, 200, 255); //노란색
