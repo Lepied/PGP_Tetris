@@ -58,6 +58,7 @@ public class SoloPlay extends JFrame{
     public static int height = 600;
     public static boolean isWindowOn = false;
     
+    
 	public SoloPlay() {
 		setTitle("테트리스");
 		setSize(width, height);
@@ -240,12 +241,15 @@ public class SoloPlay extends JFrame{
         optionItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                OptionMenu optionMenu = new OptionMenu();
+                OptionMenu optionMenu = new OptionMenu(soundManager, SoloPlay.this);
                 optionMenu.setVisible(true);
             }
         });
 	}
-	
+    public void changeResolution(int width, int height) {
+        setSize(width, height);
+        repaint();
+    }
 
 	public static void main(String[] args) {
 

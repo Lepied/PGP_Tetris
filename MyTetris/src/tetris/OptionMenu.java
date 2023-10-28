@@ -33,13 +33,14 @@ public class OptionMenu extends JFrame  {
 	 private JComboBox<String> resolutionComboBox; // 드롭다운 목록
 	 private SoloPlay soloPlay;
 	 
-	 public OptionMenu() {
+	 public OptionMenu(SoundManager soundManager, SoloPlay soloPlay) {
 	        setTitle("옵션 메뉴");
 	        setSize(300, 400);
 	        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // 창을 닫을 때만 창을 숨김
 
-	        SoundManager soundManager = new SoundManager();
-	       
+	        this.soundManager = soundManager;
+	        this.soloPlay = soloPlay;
+	        
 	        JPanel optionsPanel = new JPanel(new GridBagLayout());
 	        getContentPane().add(optionsPanel, BorderLayout.CENTER);
 
@@ -89,8 +90,7 @@ public class OptionMenu extends JFrame  {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
 	                String selectedResolution = (String) resolutionComboBox.getSelectedItem();
-	                soloPlay = new SoloPlay();
-	                if (soloPlay != null && SoloPlay.isWindowOn) {
+	                if (soloPlay != null) {
 	                    int newWidth = 0;
 	                    int newHeight = 0;
 
@@ -107,6 +107,9 @@ public class OptionMenu extends JFrame  {
 	                        newWidth = 1920;
 	                        newHeight = 1080;
 	                    }
+
+	                    // 현재 실행 중인 SoloPlay의 해상도 변경
+	                    soloPlay.changeResolution(newWidth, newHeight);
 	                }
 	            }
 	        });
@@ -119,8 +122,7 @@ public class OptionMenu extends JFrame  {
 	        saveButton.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	                // 설정을 저장하고 창을 닫음
-	                // 설정을 저장하는 코드를 여기에 추가
+
 	                dispose(); // 창을 닫음
 	            }
 	        });
