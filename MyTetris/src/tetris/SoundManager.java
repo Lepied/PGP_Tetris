@@ -1,8 +1,16 @@
 package tetris;
 
-import javax.sound.sampled.*;
+
 import java.io.File;
 import java.io.IOException;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.sound.sampled.*;
 
 public class SoundManager {
 	public Clip clip;
@@ -110,6 +118,7 @@ public class SoundManager {
 	public static void main(String[] args) {
 		SoundManager soundManager = new SoundManager();
 		soundManager.play();
+		soundManager.getVolume();
 		soundManager.setVolume(0.5f);
 		soundManager.stop();
 	}

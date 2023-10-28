@@ -18,9 +18,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import javax.swing.JColorChooser;
-import java.awt.Color;
-
-import java.io.File; //
 
 import javax.sound.sampled.AudioFormat; // 
 import javax.sound.sampled.AudioInputStream; //

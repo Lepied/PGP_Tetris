@@ -316,7 +316,7 @@ public class TetrisCanvas extends JPanel implements Runnable, KeyListener, Compo
 			}
 			data.removeLines();
 			score = data.getLine() * 175 * Constant.level;
-			worker.interrupt();
+			//worker.interrupt();
 			if(gamemode ==1)
 			{
 				myTetris.updateScore(score);
@@ -329,6 +329,7 @@ public class TetrisCanvas extends JPanel implements Runnable, KeyListener, Compo
 				soloPlay.updateLevel();
 				repaint();
 			}
+			
 			break;
 		case 32:
 			// 블록 하드 드롭 (임시)

@@ -50,6 +50,8 @@ public class ServerDialog extends JDialog {
 				dispose();
 			}
 		});
+		
+		setLocationRelativeTo(null);
 	}
 	
 	public int getPortNumber() {

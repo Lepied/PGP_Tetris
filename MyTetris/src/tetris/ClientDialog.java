@@ -70,6 +70,8 @@ public class ClientDialog extends JDialog {
 				dispose();
 			}
 		});
+		
+		setLocationRelativeTo(null);
 	}
 	
 	public int getPortNumber() {

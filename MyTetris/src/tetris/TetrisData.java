@@ -101,16 +101,16 @@ public class TetrisData {
 			System.out.println();
 		}
 	}
-	public void levelSetting()
+	public synchronized void levelSetting()
 	{
 		levelUP = true;
 		if(line>lineRiser)
 		{
-			int tempScore;
+			
 			Constant.level = Constant.level+1;
 			lineRiser = lineRiser + 10;
 		}
-		
+
 	}
 	
 	public void loadNetworkData(String input) {
