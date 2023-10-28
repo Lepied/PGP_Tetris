@@ -76,11 +76,53 @@ public class TetrisPreview extends JPanel {
 		
 		if(holdPiece !=null)  //저장된 테트리스 조각 그리기
 		{
+			int cx = holdPiece.getX(); // 중심의 x 좌표
+		    int cy = holdPiece.getY(); // 중심의 y 좌표
+
 			for(int i =0; i<4; i++)
 			{
-				g.setColor(Constant.basicColor(holdPiece.getType(),Constant.getCurrentTheme()));
-				g.fill3DRect(Constant.margin/2+10 + Constant.w*(1+holdPiece.c[i]), Constant.margin/2+200 + Constant.w*(1+holdPiece.r[i])
-						, Constant.w, Constant.w, true);
+				int x = 0, y = 0;
+				
+				if(holdPiece.type == 1)  //블럭이 Bar일 경우 미리보기에 안삐져나오게 하기
+				{ 	
+
+					// 회전 상태에 따라 위치 계산
+		        	if (holdPiece.isHorizontal()) 
+		        	{
+		        		if(holdPiece.getRotatedCount()%4 == 0)
+		        		{
+		        			x = 0;
+		        		}
+		        		if(holdPiece.getRotatedCount()%4 == 2)
+		        		{
+		        			x = 1;
+		        		}
+		        	} 
+		        	else if (holdPiece.isVertical()) 
+		        	{
+		        		if(holdPiece.getRotatedCount()%4 == 1)
+		        		{
+		        			y = 1;
+		        		}
+		        		if(holdPiece.getRotatedCount()%4 == 3)
+		        		{
+		        			y = 0;
+		        		}
+		        	}
+		        	g.setColor(Constant.basicColor(holdPiece.getType(),Constant.getCurrentTheme()));
+					g.fill3DRect(Constant.margin/2+10 + Constant.w*(1+holdPiece.c[i]+x), 
+							Constant.margin/2+200 + Constant.w*(1+holdPiece.r[i]+y)
+							, Constant.w, Constant.w, true);
+					
+				}
+				else 
+				{
+					g.setColor(Constant.basicColor(holdPiece.getType(),Constant.getCurrentTheme()));
+					g.fill3DRect(Constant.margin/2+10 + Constant.w*(1+holdPiece.c[i]), 
+							Constant.margin/2+200 + Constant.w*(1+holdPiece.r[i])
+							, Constant.w, Constant.w, true);
+				}
+			
 				
 			}
 		}

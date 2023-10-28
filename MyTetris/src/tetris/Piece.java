@@ -11,13 +11,17 @@ public abstract class Piece {
 	protected TetrisData data;  // 테트리스 내부 데이터
 	protected Point center; // 조각의 중심 좌표
 	protected int type; // 조각들의 색깔 타입
+	protected int rotatedCount;
+	
 	public Piece(TetrisData data, int type) {
 		r = new int[4];
 		c = new int[4];
 		this.data = data;
 		this.type = type;
 		center = new Point(5,0);
+		rotatedCount = 0;
 	}
+	
 	public abstract int getType();
 	public abstract int roteType();
  
@@ -28,11 +32,13 @@ public abstract class Piece {
 		boolean value = false;
 		int x = getX();
 		int y = getY();
-		if(getMinY() + y <= 0) { // 게임 종료 상황
+		if(getMinY() + y <= 0) 
+		{ // 게임 종료 상황
 			value = true;
 		}
  
-		for(int i=0; i < 4; i++) {
+		for(int i=0; i < 4; i++)
+		{
 			data.setAt(y + r[i], x + c[i], getType());
 		}
 		return value;
@@ -52,22 +58,28 @@ public abstract class Piece {
 		int y = getY();
 		switch(dir) {
 		case 0 : // 아래
-			for(int i=0; i < r.length; i++) {
-				if(data.getAt(y+r[i]+1, x+c[i]) != 0) {
+			for(int i=0; i < r.length; i++)
+			{
+				if(data.getAt(y+r[i]+1, x+c[i]) != 0) 
+				{
 					return true;
 				}
 			}
 			break;
 		case 1 : // 왼쪽
-			for(int i=0; i < r.length; i++) {
-				if(data.getAt(y+r[i], x+c[i]-1) != 0) {
+			for(int i=0; i < r.length; i++) 
+			{
+				if(data.getAt(y+r[i], x+c[i]-1) != 0)
+				{
 					return true;
 				}
 			}
 			break;
 		case 2 : // 오른쪽
-			for(int i=0; i < r.length; i++) {
-				if(data.getAt(y+r[i], x+c[i] + 1) != 0) {
+			for(int i=0; i < r.length; i++)
+			{
+				if(data.getAt(y+r[i], x+c[i] + 1) != 0) 
+				{
 					return true;
 				}
 			}
@@ -76,7 +88,8 @@ public abstract class Piece {
 		return false;
 	}
  
-	public int getMinX() {
+	public int getMinX() 
+	{
 		int min = c[0];
 		for(int i=1; i < c.length; i++) {
 			if(c[i] < min) {
@@ -86,9 +99,11 @@ public abstract class Piece {
 		return min;
 	}
  
-	public int getMaxX() {
+	public int getMaxX() 
+	{
 		int max = c[0];
-		for(int i=1; i < c.length; i++) {
+		for(int i=1; i < c.length; i++)
+		{
 			if(c[i] > max) {
 				max = c[i];
 			}
@@ -96,9 +111,11 @@ public abstract class Piece {
 		return max;
 	}
  
-	public int getMinY() {
+	public int getMinY() 
+	{
 		int min = r[0];
-		for(int i=1; i < r.length; i++) {
+		for(int i=1; i < r.length; i++)
+		{
 			if(r[i] < min) {
 				min = r[i];
 			}
@@ -109,7 +126,8 @@ public abstract class Piece {
 	public int getMaxY() 
 	{
 		int max = r[0];
-		for(int i=1; i < r.length; i++) {
+		for(int i=1; i < r.length; i++) 
+		{
 			if(r[i] > max) {
 				max = r[i];
 			}
@@ -193,8 +211,10 @@ public abstract class Piece {
 	}
 
 	public boolean moveDown() { // 아래로 이동
-		if(center.y + getMaxY() + 1 < TetrisData.ROW) {
-			if(isOverlap(DOWN) != true) {
+		if(center.y + getMaxY() + 1 < TetrisData.ROW) 
+		{
+			if(isOverlap(DOWN) != true) 
+			{
 				center.y++;
 			} else {
 				return true;
@@ -216,6 +236,26 @@ public abstract class Piece {
 			if(isOverlap(RIGHT) != true) {center.x++;}
 			else return;
 	}
+	
+	public boolean isHorizontal() { //Bar블럭 전용
+	    int minX = getMinX();
+	    int maxX = getMaxX();
+	    int minY = getMinY();
+	    int maxY = getMaxY();
+	    
+	    // Bar 블록이 수평 상태인지 확인
+	    return (maxX - minX) == 3 && (maxY - minY) == 0;
+	}
+
+	public boolean isVertical() { //Bar블럭 전용
+	    int minX = getMinX();
+	    int maxX = getMaxX();
+	    int minY = getMinY();
+	    int maxY = getMaxY();
+	    
+	    // Bar 블록이 수직 상태인지 확인
+	    return (maxX - minX) == 0 && (maxY - minY) == 3;
+	}
 
 	public void rotate() {  // 조각 회전
 		int rc = roteType();
@@ -227,6 +267,17 @@ public abstract class Piece {
 		} else {
 			rotate4();
 		}
+		rotatedCount++;
+		if(rotatedCount==4)
+		{
+			rotatedCount = 0;
+		}
+		//rotationCount = (rotationCount + 1) % 4; -> 0,1,2,3
+	}
+	
+	public int getRotatedCount()
+	{
+		return rotatedCount;
 	}
 
 	public void rotate4() // 조각 회전
